@@ -42,6 +42,9 @@ function playdate.update()
     xvel*=0.7
 	yvel*=0.7
 
+    barSlice:drawInRect(bar.x - barWidth/2, bar.y, barWidth, bar.height)
+    controllableSlice:drawInRect(bar.x - barWidth/2, bar.y + bar.pos, barWidth, bar.areaHeight)
+    fishSprite:draw(bar.x - fishSize / 2, bar.y + bar.fishPos - fishSize / 2)
 
     mapSprite:moveTo( 0-ScrollX, 0-ScrollY )
     gfx.setBackgroundColor(gfx.kColorBlack)
