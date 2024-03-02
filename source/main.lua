@@ -38,15 +38,15 @@ function myGameSetUp()
     local playerImage = gfx.image.new("Images/playerImage")
     assert( playerImage ) -- make sure the image was where we thought
 
-	local sonicImage = gfx.image.new("Images/sonic")
-    assert( sonicImage )
+	local fishMeterImg = gfx.image.new("Images/FishingMeter")
+    assert( fishMeterImg )
 
     playerSprite = gfx.sprite.new( playerImage )
     playerSprite:moveTo( 200, 120 ) -- this is where the center of the sprite is placed; (200,120) is the center of the Playdate screen
     playerSprite:add() -- This is critical!
-	sonicSprite = gfx.sprite.new ( sonicImage )
-	sonicSprite:moveTo(200,120)
-	sonicSprite:add()
+	FishMeterSprite = gfx.sprite.new ( fishMeterImg )
+	FishMeterSprite:moveTo(200,120)
+	FishMeterSprite:add()
 
     -- We want an environment displayed behind our sprite.
     -- There are generally two ways to do this:
@@ -62,7 +62,7 @@ function myGameSetUp()
         function( x, y, width, height )
             -- x,y,width,height is the updated area in sprite-local coordinates
             -- The clip rect is already set to this area, so we don't need to set it ourselves
-            --backgroundImage:draw( 0, 0 )
+            backgroundImage:draw( 0, 0 )
         end
     )
 
