@@ -1,6 +1,6 @@
 name=fishe
 author=Orange Poly
 description=ing
-bundleID=com.organization.package
+bundleID=com.orangepoly.fishe
 version=0.0.1
 buildNumber=1
