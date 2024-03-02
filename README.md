@@ -1,2 +1,3 @@
 # fishe
 ing
+/fiʃ/
