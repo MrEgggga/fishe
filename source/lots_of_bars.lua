@@ -19,7 +19,7 @@ function barsManager:init(fish_caught, reduce_bar_drain, area_size)
     self.barDrain = 1 - reduce_bar_drain * 0.15
     self.frames = {math.random(0, 150)}
     for i=1,self.numBars-1 do
-        table.insert(self.frames, self.frames[i] + math.random(0, 90))
+        table.insert(self.frames, self.frames[i] + math.random(0, 60))
     end
 end
 
