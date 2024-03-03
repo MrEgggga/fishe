@@ -32,7 +32,7 @@ function barsManager:update()
             end
         end
     end
-    if self.strikes > self.numBars / 3 then
+    if self.strikes > self.numBars / 5 then
         for i,bar in pairs(self.currentBars) do
             bar:remove()
         end
