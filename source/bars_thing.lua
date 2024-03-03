@@ -69,7 +69,7 @@ function barThing:draw(x, y, w, h)
     -- TODO: display button used
 
     barSlice:drawInRect(0, 0, barWidth + 10, self.height)
-    controllableSlice:drawInRect(0, self.pos, barWidth, self.areaHeight)
+    controllableSlice:drawInRect(1, self.pos, barWidth, self.areaHeight)
     fishSprite:draw(barWidth / 2 - fishSize / 2, self.fishPos - fishSize / 2)
     buttonImgs[table.indexOfElement(buttons, self.key)]:draw(barWidth / 2 - fishSize / 2, barWidth / 2 - fishSize / 2)
     gfx.setColor(gfx.kColorWhite)
