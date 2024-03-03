@@ -29,13 +29,13 @@ function barThing:init()
     self.fishVel = 0
     self.fishAccelMin = -1
     self.fishAccelMax = 1
-    self.gravity = 0.5
-    self.accel = 1.0
+    self.gravity = 0.3
+    self.accel = 0.8
     self.completion = self.height / 2
     self.key = playdate.kButtonA
     self.getAccel = function (self)
         if playdate.buttonIsPressed(self.key) then
-            return 1
+            return self.accel
         end
         return 0
     end
