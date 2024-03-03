@@ -16,9 +16,9 @@ direction = "D"
 fishCount = 0
 totalFish = 0
 reduceBarDrain = 0
-drainCost = 1
+drainCost = 2
 areaSize = 0
-areaCost = 1
+areaCost = 2
 upgradeCost = 3
 
 local bars = nil
@@ -188,26 +188,31 @@ function playdate.update()
             walkR.frame=1
         end
 
-        if playdate.buttonJustPressed(playdate.kButtonA) then
-            bars = barsManager(totalFish, reduceBarDrain, areaSize)
-            print("fishe")
-        end
-
         if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/shopmask"), shopSprite.x-128/2, shopSprite.y-53/2, gfx.kImageUnflipped) then
             gfx.setFont(mainFont)
-            gfx.drawText("shop!!", 170,-4)
-            gfx.drawText("press B to upgrade stuff", 50,20)
-            gfx.drawText("(costs "..upgradeCost.." fish)", 130,50)
+            gfx.drawTextAligned("shop!!", 200, 0, kTextAlignment.center)
+            gfx.drawTextAligned("A: slower drain (" .. math.ceil(drainCost) .. " fish)", 200,30, kTextAlignment.center)
+            gfx.drawTextAligned("B: larger area (" .. math.ceil(areaCost) .. " fish)", 200,60, kTextAlignment.center)
 
-            if playdate.buttonJustPressed(playdate.kButtonB) then
-                if fishCount>=upgradeCost then
-                    fishCount-=upgradeCost
+            if playdate.buttonJustPressed(playdate.kButtonA) then
+                if fishCount>=math.ceil(drainCost) then
+                    fishCount -= math.ceil(drainCost)
                     reduceBarDrain+=1
-                    areaSize+=1
-                    upgradeCost *=2
+                    drainCost *= 1.5
                 end
             end
-            
+            if playdate.buttonJustPressed(playdate.kButtonB) then
+                if fishCount >= math.ceil(areaCost) then
+                    fishCount -= math.ceil(areaCost)
+                    areaSize += 1
+                    areaCost *= 1.5
+                end
+            end
+        else
+            if playdate.buttonJustPressed(playdate.kButtonA) then
+                bars = barsManager(totalFish, reduceBarDrain, areaSize)
+                print("fishe")
+            end
 
         end
 
