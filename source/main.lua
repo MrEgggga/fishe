@@ -191,7 +191,20 @@ function playdate.update()
         end
 
         if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/shopmask"), shopSprite.x-128/2, shopSprite.y-53/2, gfx.kImageUnflipped) then
-            print("shop")
+            gfx.setFont(mainFont)
+            gfx.drawText("shop!!", 170,-4)
+            gfx.drawText("press B to upgrade stuff", 50,20)
+            gfx.drawText("(costs 3 fish)", 130,50)
+
+            if playdate.buttonJustPressed(playdate.kButtonB) then
+                if fishCount>=3 then
+                    fishCount-=3
+                    reduceBarDrain+=1
+                    areaSize+=1
+                end
+            end
+            
+
         end
 
     end
