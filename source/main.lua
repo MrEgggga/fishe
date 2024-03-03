@@ -14,6 +14,7 @@ xvel = 0
 yvel = 0
 direction = "D"
 fishCount = 0
+totalFish = 0
 
 local bars = nil
 
@@ -201,6 +202,7 @@ function playdate.update()
                 -- failure code
             else
                 fishCount+=1
+                totalFish+=1
             end
             bars = nil
         end
