@@ -13,10 +13,14 @@ ScrollY = -120
 xvel = 0
 yvel = 0
 direction = "D"
+fishCount = 0
 
 local bars = nil
 
 function GfxSetup()
+
+    mainFont = gfx.font.new("Fonts/Mont-HeavyDEMO-20")
+
     local mapImage = gfx.image.new("Images/map")
     assert( mapImage )
     local waterImage = gfx.image.new("Images/watermap")
@@ -25,6 +29,8 @@ function GfxSetup()
     assert( playerImgs )
     local playerhbImg = gfx.image.new("Images/PlayerHitbox")
     assert( playerhbImg )
+    local fishImg = gfx.image.new("Images/Fish")
+    assert( fishImg )
 
     wmapSprite = gfx.sprite.new( waterImage )
     wmapSprite:moveTo( 200, 120 )
@@ -37,6 +43,10 @@ function GfxSetup()
     mapSprite = gfx.sprite.new( mapImage )
     mapSprite:moveTo( 200, 120 )
     mapSprite:add()
+
+    fishCountSprite = gfx.sprite.new( fishImg )
+    fishCountSprite:moveTo( 12, 14 )
+    fishCountSprite:add()
 
     --local bar = barThing()
     --local bar2 = barThing()
@@ -196,6 +206,9 @@ function playdate.update()
         end
     end
 
+    gfx.setFont(mainFont)
+    gfx.drawText(fishCount, 24,0)
+    --,{mainFont,mainFont,mainFont}
     
     
 
