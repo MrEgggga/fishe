@@ -37,16 +37,16 @@ function GfxSetup()
     mapSprite:moveTo( 200, 120 )
     mapSprite:add()
 
-    local bar = barThing()
-    local bar2 = barThing()
-    bar.key = playdate.kButtonA
-    bar2.key = playdate.kButtonUp
-    bars = {bar, bar2}
-    printTable(bar)
-    bar:moveTo(260, 120)
-    bar:add()
-    bar2:moveTo(160, 120)
-    bar2:add()
+    --local bar = barThing()
+    --local bar2 = barThing()
+    --bar.key = playdate.kButtonA
+    --bar2.key = playdate.kButtonUp
+    --bars = {bar, bar2}
+    --printTable(bar)
+    --bar:moveTo(260, 120)
+    --bar:add()
+    --bar2:moveTo(160, 120)
+    --bar2:add()
 
     walkD = gfx.animation.loop.new(100, playerImgs, true)
     walkD.startFrame = 17
@@ -60,6 +60,19 @@ function GfxSetup()
     walkL = gfx.animation.loop.new(100, playerImgs, true)
     walkL.startFrame = 9
     walkL.endFrame = 12
+
+    fishD = gfx.animation.loop.new(400, playerImgs, true)
+    fishD.startFrame = 1
+    fishD.endFrame = 2
+    fishU = gfx.animation.loop.new(400, playerImgs, true)
+    fishU.startFrame = 5
+    fishU.endFrame = 6
+    fishR = gfx.animation.loop.new(400, playerImgs, true)
+    fishR.startFrame = 7
+    fishR.endFrame = 8
+    fishL = gfx.animation.loop.new(400, playerImgs, true)
+    fishL.startFrame = 3
+    fishL.endFrame = 4
 
 end
 
@@ -127,29 +140,56 @@ function playdate.update()
         end
     end
 
+    if state == kStateWalking then
+        if direction == "U" then
+            walkU:draw(160,80)
+            walkU.delay = 500/(0.001+(math.abs(xvel)+math.abs(yvel)))
+        end
+        if direction == "D" then
+            walkD:draw(160,80)
+            walkD.delay = 500/(0.001+(math.abs(xvel)+math.abs(yvel)))
+        end
+        if direction == "L" then
+            walkL:draw(160,80)
+            walkL.delay = 500/(0.001+(math.abs(xvel)+math.abs(yvel)))
+        end
+        if direction == "R" then
+            walkR:draw(160,80)
+            walkR.delay = 500/(0.001+(math.abs(xvel)+math.abs(yvel)))
+        end
+        if math.abs(xvel)+math.abs(yvel)<0.1 then
+            walkU.frame=1
+            walkD.frame=1
+            walkL.frame=1
+            walkR.frame=1
+        end
 
-    if direction == "U" then
-        walkU:draw(160,80)
-        walkU.delay = 500/(0.001+(math.abs(xvel)+math.abs(yvel)))
+        if playdate.buttonJustPressed(playdate.kButtonA) then
+            local bar = barThing()
+            bar.key = playdate.kButtonA
+            bar:moveTo(260, 120)
+            bar:add()
+            bars = {bar}
+            print("fishe")
+        end
     end
-    if direction == "D" then
-        walkD:draw(160,80)
-        walkD.delay = 500/(0.001+(math.abs(xvel)+math.abs(yvel)))
+
+    if state == kStateFishing then
+        if direction == "U" then
+            fishU:draw(160,80)
+        end
+        if direction == "D" then
+            fishD:draw(160,80)
+        end
+        if direction == "L" then
+            fishL:draw(160,80)
+        end
+        if direction == "R" then
+            fishR:draw(160,80)
+        end
     end
-    if direction == "L" then
-        walkL:draw(160,80)
-        walkL.delay = 500/(0.001+(math.abs(xvel)+math.abs(yvel)))
-    end
-    if direction == "R" then
-        walkR:draw(160,80)
-        walkR.delay = 500/(0.001+(math.abs(xvel)+math.abs(yvel)))
-    end
-    if math.abs(xvel)+math.abs(yvel)<0.1 then
-        walkU.frame=1
-        walkD.frame=1
-        walkL.frame=1
-        walkR.frame=1
-    end
+
+    
     
 
     playdate.timer.updateTimers()
