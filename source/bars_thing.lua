@@ -39,7 +39,7 @@ function barThing:init()
     self.key = playdate.kButtonA
     self.getAccel = function (self)
         if playdate.buttonIsPressed(self.key) then
-            return self.accel
+            return 1
         end
         return 0
     end
