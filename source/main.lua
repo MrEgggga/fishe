@@ -32,6 +32,8 @@ function GfxSetup()
     assert( playerhbImg )
     local fishImg = gfx.image.new("Images/Fish")
     assert( fishImg )
+    local shopImg = gfx.image.new("Images/ShopMask")
+    assert( shopImg )
 
     wmapSprite = gfx.sprite.new( waterImage )
     wmapSprite:moveTo( 200, 120 )
@@ -48,6 +50,10 @@ function GfxSetup()
     fishCountSprite = gfx.sprite.new( fishImg )
     fishCountSprite:moveTo( 12, 12 )
     fishCountSprite:add()
+
+    shopSprite = gfx.sprite.new( shopImg )
+    shopSprite:moveTo( 12, 12 )
+    shopSprite:add()
 
     --local bar = barThing()
     --local bar2 = barThing()
@@ -130,6 +136,7 @@ function playdate.update()
     --    yvel = 0
     --end
     mapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
+    shopSprite:moveTo( (0-math.floor(0.5+(ScrollX/2))*2)+128, (0-math.floor(0.5+(ScrollY/2))*2)+90 )
     
 
     xvel*=0.7
@@ -180,6 +187,11 @@ function playdate.update()
             bars = barsManager()
             print("fishe")
         end
+
+        if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/shopmask"), shopSprite.x-128/2, shopSprite.y-53/2, gfx.kImageUnflipped) then
+            print("shop")
+        end
+
     end
 
     if state == kStateFishing then
