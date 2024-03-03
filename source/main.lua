@@ -17,6 +17,7 @@ fishCount = 0
 totalFish = 0
 reduceBarDrain = 0
 areaSize = 0
+upgradeCost = 3
 
 local bars = nil
 
@@ -194,13 +195,14 @@ function playdate.update()
             gfx.setFont(mainFont)
             gfx.drawText("shop!!", 170,-4)
             gfx.drawText("press B to upgrade stuff", 50,20)
-            gfx.drawText("(costs 3 fish)", 130,50)
+            gfx.drawText("(costs "..upgradeCost.." fish)", 130,50)
 
             if playdate.buttonJustPressed(playdate.kButtonB) then
                 if fishCount>=3 then
                     fishCount-=3
                     reduceBarDrain+=1
                     areaSize+=1
+                    upgradeCost *=2
                 end
             end
             
