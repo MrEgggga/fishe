@@ -3,12 +3,15 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 import "CoreLibs/crank"
+import "bars_thing.lua"
 local gfx <const> = playdate.graphics
 
 ScrollX = -200
 ScrollY = -120
 xvel = 0
 yvel = 0
+
+local bars = {}
 
 function GfxSetup()
     local mapImage = gfx.image.new("Images/map")
@@ -18,9 +21,18 @@ function GfxSetup()
     mapSprite:moveTo( 200, 120 )
     mapSprite:add()
 
+    local bar = barThing()
+    local bar2 = barThing()
+    bar.key = playdate.kButtonA
+    bar2.key = playdate.kButtonUp
+    bars = {bar, bar2}
+    printTable(bar)
+    bar:moveTo(220, 120)
+    bar:add()
+    bar2:moveTo(180, 120)
+    bar2:add()
 end
 
-GfxSetup()
 
 function playdate.update()
     if playdate.buttonIsPressed( playdate.kButtonUp ) then
@@ -46,4 +58,12 @@ function playdate.update()
     gfx.setBackgroundColor(gfx.kColorBlack)
     gfx.sprite.update()
     playdate.timer.updateTimers()
+
+    for _,b in pairs(bars) do
+        if b:checkDone() ~= fishingMinigame.kIncomplete then
+            b:remove()
+        end
+    end
 end
+
+GfxSetup()
