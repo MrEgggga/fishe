@@ -70,8 +70,12 @@ function playdate.update()
     mapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
     gfx.setBackgroundColor(gfx.kColorBlack)
     gfx.sprite.update()
-    walkD:draw(160,80)
     playdate.timer.updateTimers()
+
+    walkD:draw(160,80)
+    -- sebastian could you use sprites so it's easier to put the 
+    -- walking guy in front of map and behind bars (not as in in jail)
+    -- (as in behind all of the bar ui things)
 
     for _,b in pairs(bars) do
         if b:checkDone() ~= fishingMinigame.kIncomplete then
