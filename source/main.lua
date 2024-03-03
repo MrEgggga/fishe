@@ -93,17 +93,17 @@ function playdate.update()
 
     ScrollX += xvel
     wmapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
-    if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/watermap"), wmapSprite.x-960/2, wmapSprite.y-944/2, gfx.kImageUnflipped) then
-        ScrollX -= xvel
-        xvel = 0
-    end
+    --if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/watermap"), wmapSprite.x-960/2, wmapSprite.y-944/2, gfx.kImageUnflipped) then
+    --    ScrollX -= xvel
+    --    xvel = 0
+    --end
 
     ScrollY += yvel
-    wmapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
-    if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/watermap"), wmapSprite.x-960/2, wmapSprite.y-944/2, gfx.kImageUnflipped) then
-        ScrollY -= yvel
-        yvel = 0
-    end
+    --wmapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
+    --if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/watermap"), wmapSprite.x-960/2, wmapSprite.y-944/2, gfx.kImageUnflipped) then
+    --    ScrollY -= yvel
+    --    yvel = 0
+    --end
     mapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
     
 
