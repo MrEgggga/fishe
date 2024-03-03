@@ -28,7 +28,7 @@ function barThing:init(bar_drain, area_size)
     self.height = 200
     self.pos = 80
     self.vel = 0
-    self.areaHeight = 40 + area_size * 20
+    self.areaHeight = 40 + area_size * 8
     self.fishPos = 100
     self.fishVel = 0
     self.fishAccelMin = -1
@@ -93,7 +93,7 @@ function barThing:update()
     end
 
     if self.fishPos > self.pos and self.fishPos < self.pos + self.areaHeight then
-        self.completion += 1
+        self.completion += 1.5
     else
         self.completion -= self.drain
     end
