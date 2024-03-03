@@ -143,8 +143,14 @@ function playdate.update()
     playdate.timer.updateTimers()
 
     for _,b in pairs(bars) do
-        if b:checkDone() ~= fishingMinigame.kIncomplete then
+        local state = b:checkDone()
+        if state ~= fishingMinigame.kIncomplete then
             b:remove()
+            if state == fishingMinigame.kFailure then
+                -- failure code
+            else
+                -- success code
+            end
         end
     end
 end
