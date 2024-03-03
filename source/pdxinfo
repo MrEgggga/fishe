@@ -4,3 +4,4 @@ description=ing
 bundleID=com.orangepoly.fishe
 version=0.0.1
 buildNumber=1
+imagePath=SystemAssets/
