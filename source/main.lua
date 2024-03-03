@@ -20,8 +20,14 @@ drainCost = 1
 areaSize = 0
 areaCost = 1
 upgradeCost = 3
+prevFish = false
 
 local bars = nil
+
+
+local fp = playdate.sound.fileplayer.new()
+fp:load("sounds/normal")
+fp:play(0)
 
 function GfxSetup()
 
@@ -106,10 +112,27 @@ local state = kStateWalking
 
 function playdate.update()
     -- refactor later
+
+    if prevFish then
+        
+    end
+    
+
+
     if bars ~= nil then
         state = kStateFishing
+        if not prevFish then
+            fp:stop()
+            fp:load("sounds/fishing")
+            fp:play(0)
+        end
     else
         state = kStateWalking
+        if prevFish then
+            fp:stop()
+            fp:load("sounds/normal")
+            fp:play(0)
+        end
     end
 
     if state == kStateWalking then
@@ -243,7 +266,13 @@ function playdate.update()
     gfx.drawText(fishCount, 24,-4)
     --,{mainFont,mainFont,mainFont}
     
-    
+    if state == kStateWalking then
+        prevFish=false
+    else
+        prevFish=true
+    end
+
+
 
     playdate.timer.updateTimers()
 end
