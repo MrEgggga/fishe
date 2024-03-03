@@ -45,7 +45,7 @@ function GfxSetup()
     mapSprite:add()
 
     fishCountSprite = gfx.sprite.new( fishImg )
-    fishCountSprite:moveTo( 12, 14 )
+    fishCountSprite:moveTo( 12, 12 )
     fishCountSprite:add()
 
     --local bar = barThing()
@@ -200,14 +200,14 @@ function playdate.update()
             if barsState == barsManager.kFailure then
                 -- failure code
             else
-                -- success code
+                fishCount+=1
             end
             bars = nil
         end
     end
 
     gfx.setFont(mainFont)
-    gfx.drawText(fishCount, 24,0)
+    gfx.drawText(fishCount, 24,-4)
     --,{mainFont,mainFont,mainFont}
     
     
