@@ -32,12 +32,14 @@ function barsManager:update()
             end
         end
     end
-    if self.complete == self.numBars then
-        if self.strikes > self.numBars / 3 then
-            return barsManager.kFailure
-        else
-            return barsManager.kSuccess
+    if self.strikes > self.numBars / 3 then
+        for i,bar in pairs(self.currentBars) do
+            bar:remove()
         end
+        return barsManager.kFailure
+    end
+    if self.complete == self.numBars then
+        return barsManager.kSuccess
     end
     if self.added <= self.numBars and self.frameCounter == self.frames[self.added] then
         local bar = barThing()
