@@ -16,7 +16,9 @@ direction = "D"
 fishCount = 0
 totalFish = 0
 reduceBarDrain = 0
+drainCost = 1
 areaSize = 0
+areaCost = 1
 upgradeCost = 3
 
 local bars = nil
@@ -198,8 +200,8 @@ function playdate.update()
             gfx.drawText("(costs "..upgradeCost.." fish)", 130,50)
 
             if playdate.buttonJustPressed(playdate.kButtonB) then
-                if fishCount>=3 then
-                    fishCount-=3
+                if fishCount>=upgradeCost then
+                    fishCount-=upgradeCost
                     reduceBarDrain+=1
                     areaSize+=1
                     upgradeCost *=2
