@@ -43,7 +43,7 @@ function barsManager:update()
     if self.complete == self.numBars then
         return barsManager.kSuccess
     end
-    if self.added <= self.numBars and self.frameCounter == self.frames[self.added] then
+    if self.added <= self.numBars and self.frameCounter >= self.frames[self.added] then
         local bar = barThing(self.barDrain, self.areaSize)
         table.insert(self.currentBars, bar)
         bar:moveTo(36 * self.added, 120)
