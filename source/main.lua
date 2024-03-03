@@ -139,7 +139,7 @@ function playdate.update()
     --    yvel = 0
     --end
     mapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
-    shopSprite:moveTo( (0-math.floor(0.5+(ScrollX/2))*2)+128, (0-math.floor(0.5+(ScrollY/2))*2)+90 )
+    shopSprite:moveTo( (0-math.floor(0.5+(ScrollX/2))*2)+128, (0-math.floor(0.5+(ScrollY/2))*2)+52)
     
 
     xvel*=0.7
@@ -191,7 +191,7 @@ function playdate.update()
             print("fishe")
         end
 
-        if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/shopmask"), shopSprite.x-128/2, shopSprite.y-53/2, gfx.kImageUnflipped) then
+        if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/shoptable"), shopSprite.x-128/2, shopSprite.y-128/2, gfx.kImageUnflipped) then
             gfx.setFont(mainFont)
             gfx.drawText("shop!!", 170,-4)
             gfx.drawText("press B to upgrade stuff", 50,20)
