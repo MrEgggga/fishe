@@ -28,7 +28,7 @@ function GfxSetup()
     local bar = barThing()
     local bar2 = barThing()
     bar.key = playdate.kButtonA
-    bar2.key = playdate.kButtonUp
+    bar2.key = playdate.kButtonB
     bars = {bar, bar2}
     printTable(bar)
     bar:moveTo(220, 120)
