@@ -141,7 +141,7 @@ function playdate.update()
     --    yvel = 0
     --end
     mapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
-    shopSprite:moveTo( (0-math.floor(0.5+(ScrollX/2))*2)+128, (0-math.floor(0.5+(ScrollY/2))*2)+90 )
+    shopSprite:moveTo( (0-math.floor(0.5+(ScrollX/2))*2)+128, (0-math.floor(0.5+(ScrollY/2))*2)+52)
     
 
     xvel*=0.7
@@ -188,7 +188,7 @@ function playdate.update()
             walkR.frame=1
         end
 
-        if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/shopmask"), shopSprite.x-128/2, shopSprite.y-53/2, gfx.kImageUnflipped) then
+        if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/shoptable"), shopSprite.x-128/2, shopSprite.y-53/2, gfx.kImageUnflipped) then
             gfx.setFont(mainFont)
             gfx.drawTextAligned("shop!!", 200, 0, kTextAlignment.center)
             gfx.drawTextAligned("A: slower drain (" .. math.ceil(drainCost) .. " fish)", 200,30, kTextAlignment.center)
