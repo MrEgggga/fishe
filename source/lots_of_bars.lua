@@ -10,7 +10,7 @@ barsManager.kFailure = 1
 
 function barsManager:init(fish_caught, reduce_bar_drain, area_size)
     self.currentBars = {}
-    self.numBars = math.min(math.ceil(fish_caught / 3), 4)
+    self.numBars = math.min(math.ceil((fish_caught+1) / 5), 4)
     self.added = 1
     self.complete = 0
     self.strikes = 0

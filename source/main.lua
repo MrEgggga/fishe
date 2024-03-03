@@ -15,6 +15,8 @@ yvel = 0
 direction = "D"
 fishCount = 0
 totalFish = 0
+reduceBarDrain = 0
+areaSize = 0
 
 local bars = nil
 
@@ -177,7 +179,7 @@ function playdate.update()
         end
 
         if playdate.buttonJustPressed(playdate.kButtonA) then
-            bars = barsManager()
+            bars = barsManager(totalFish, reduceBarDrain, areaSize)
             print("fishe")
         end
     end
