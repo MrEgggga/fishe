@@ -85,6 +85,12 @@ function playdate.update()
     gfx.setBackgroundColor(gfx.kColorBlack)
     gfx.sprite.update()
     
+    -- sebastian could you use sprites
+    -- so it's easier to put the walking guy behind bars
+    -- (as in like . the ui things)
+    -- (not as in prison)
+    -- i can help with getting the sprites working if you need
+    -- they're a bit unintuitive
     if xvel > 0 then
         direction = "R"
     end
@@ -124,14 +130,15 @@ function playdate.update()
 
     playdate.timer.updateTimers()
 
-    walkD:draw(160,80)
-    -- sebastian could you use sprites so it's easier to put the 
-    -- walking guy in front of map and behind bars (not as in in jail)
-    -- (as in behind all of the bar ui things)
-
     for _,b in pairs(bars) do
-        if b:checkDone() ~= fishingMinigame.kIncomplete then
+        local state = b:checkDone()
+        if state ~= fishingMinigame.kIncomplete then
             b:remove()
+            if state == fishingMinigame.kFailure then
+                -- failure code
+            else
+                -- success code
+            end
         end
     end
 end
