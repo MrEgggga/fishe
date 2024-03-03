@@ -5,6 +5,7 @@ import "CoreLibs/timer"
 import "CoreLibs/crank"
 import "CoreLibs/animation"
 import "bars_thing.lua"
+import "lots_of_bars.lua"
 local gfx <const> = playdate.graphics
 
 ScrollX = -200
@@ -13,7 +14,8 @@ xvel = 0
 yvel = 0
 direction = "D"
 fishCount = 0
-local bars = {}
+
+local bars = nil
 
 function GfxSetup()
 
@@ -92,7 +94,7 @@ local state = kStateWalking
 
 function playdate.update()
     -- refactor later
-    if #bars > 0 then
+    if bars ~= nil then
         state = kStateFishing
     else
         state = kStateWalking
@@ -174,11 +176,7 @@ function playdate.update()
         end
 
         if playdate.buttonJustPressed(playdate.kButtonA) then
-            local bar = barThing()
-            bar.key = playdate.kButtonA
-            bar:moveTo(260, 120)
-            bar:add()
-            bars = {bar}
+            bars = barsManager()
             print("fishe")
         end
     end
@@ -196,6 +194,16 @@ function playdate.update()
         if direction == "R" then
             fishR:draw(160,80)
         end
+
+        local barsState = bars:update()
+        if barsState ~= barsManager.kIncomplete then
+            if barsState == barsManager.kFailure then
+                -- failure code
+            else
+                -- success code
+            end
+            bars = nil
+        end
     end
 
     gfx.setFont(mainFont)
@@ -205,17 +213,4 @@ function playdate.update()
     
 
     playdate.timer.updateTimers()
-
-    for i,b in pairs(bars) do
-        local state = b:checkDone()
-        if state ~= fishingMinigame.kIncomplete then
-            b:remove()
-            table.remove(bars, i)
-            if state == fishingMinigame.kFailure then
-                -- failure code
-            else
-                -- success code
-            end
-        end
-    end
 end
