@@ -22,7 +22,7 @@ function fishingMinigame:checkDone() end
 
 class("barThing").extends(fishingMinigame)
 
-function barThing:init()
+function barThing:init(difficulty)
     barThing.super.init(self)
 
     self.height = 200
@@ -35,6 +35,7 @@ function barThing:init()
     self.fishAccelMax = 1
     self.gravity = 0.3
     self.accel = 0.65
+    self.drain = difficulty
     self.completion = self.height / 2
     self.key = playdate.kButtonA
     self.getAccel = function (self)
@@ -50,6 +51,12 @@ local backgroundSprite = gfx.image.new("images/background.png")
 local fishSprite = gfx.image.new("images/fish.png")
 local barSlice = gfx.nineSlice.new("images/FishingMeter 9Slice.png", 3, 3, 5, 12)
 local controllableSlice = gfx.nineSlice.new("images/FishBar 9Slice.png", 8, 8, 8, 8)
+local buttons = {playdate.kButtonA, playdate.kButtonB, playdate.kButtonUp}
+local buttonImgs = {
+    gfx.image.new("images/key_a.png"),
+    gfx.image.new("images/key_b.png"),
+    gfx.image.new("images/key_up.png"),
+}
 
 
 math.randomseed(playdate.getSecondsSinceEpoch())
@@ -63,6 +70,7 @@ function barThing:draw(x, y, w, h)
     barSlice:drawInRect(0, 0, barWidth + 10, self.height)
     controllableSlice:drawInRect(0, self.pos, barWidth, self.areaHeight)
     fishSprite:draw(barWidth / 2 - fishSize / 2, self.fishPos - fishSize / 2)
+    buttonImgs[table.indexOfElement(buttons, self.key)]:draw(barWidth / 2 - fishSize / 2, barWidth / 2 - fishSize / 2)
     gfx.setColor(gfx.kColorWhite)
     gfx.fillRect(barWidth + 2, self.height - self.completion, 6, self.completion)
 end
