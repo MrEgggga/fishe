@@ -18,8 +18,20 @@ local bars = {}
 function GfxSetup()
     local mapImage = gfx.image.new("Images/map")
     assert( mapImage )
+    local waterImage = gfx.image.new("Images/watermap")
+    assert( waterImage )
     local playerImgs = gfx.imagetable.new("Images/Player")
     assert( playerImgs )
+    local playerhbImg = gfx.image.new("Images/PlayerHitbox")
+    assert( playerhbImg )
+
+    wmapSprite = gfx.sprite.new( waterImage )
+    wmapSprite:moveTo( 200, 120 )
+    wmapSprite:add()
+
+    PlayerHitbox = gfx.sprite.new( playerhbImg )
+    PlayerHitbox:moveTo( 200,125 )
+    PlayerHitbox:add()
 
     mapSprite = gfx.sprite.new( mapImage )
     mapSprite:moveTo( 200, 120 )
@@ -31,9 +43,9 @@ function GfxSetup()
     bar2.key = playdate.kButtonB
     bars = {bar, bar2}
     printTable(bar)
-    bar:moveTo(220, 120)
+    bar:moveTo(260, 120)
     bar:add()
-    bar2:moveTo(180, 120)
+    bar2:moveTo(160, 120)
     bar2:add()
 
     walkD = gfx.animation.loop.new(100, playerImgs, true)
@@ -48,16 +60,10 @@ function GfxSetup()
     walkL = gfx.animation.loop.new(100, playerImgs, true)
     walkL.startFrame = 9
     walkL.endFrame = 12
-    
-
-    --PlayerSprite = gfx.sprite.new( mapImage )
-    --PlayerSprite:moveTo( 64, 64 )
-    --PlayerSprite:add()
-
-    
 
 end
 
+GfxSetup()
 
 function playdate.update()
     if playdate.buttonIsPressed( playdate.kButtonUp ) then
@@ -74,28 +80,41 @@ function playdate.update()
     end
 
     ScrollX += xvel
-    ScrollY += yvel
+    wmapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
+    if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/watermap"), wmapSprite.x-960/2, wmapSprite.y-944/2, gfx.kImageUnflipped) then
+        ScrollX -= xvel
+        xvel = 0
+    end
 
+    ScrollY += yvel
+    wmapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
+    if gfx.checkAlphaCollision(gfx.image.new("Images/PlayerHitbox"), 200-40, 125-40, gfx.kImageUnflipped, gfx.image.new("Images/watermap"), wmapSprite.x-960/2, wmapSprite.y-944/2, gfx.kImageUnflipped) then
+        ScrollY -= yvel
+        yvel = 0
+    end
+    mapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
     
 
     xvel*=0.7
 	yvel*=0.7
-
-    mapSprite:moveTo( 0-math.floor(0.5+(ScrollX/2))*2, 0-math.floor(0.5+(ScrollY/2))*2 )
     gfx.setBackgroundColor(gfx.kColorBlack)
     gfx.sprite.update()
-    if xvel > 0 then
-        direction = "R"
+
+    if math.abs(xvel)+math.abs(yvel)>0.1 then
+        if xvel > 0 then
+            direction = "R"
+        end
+        if xvel < 0 then
+            direction = "L"
+        end
+        if yvel > 0 and math.abs(yvel) > math.abs(xvel) then
+            direction = "D"
+        end
+        if yvel < 0 and math.abs(yvel) > math.abs(xvel) then
+            direction = "U"
+        end
     end
-    if xvel < 0 then
-        direction = "L"
-    end
-    if yvel > 0 and math.abs(yvel) > math.abs(xvel) then
-        direction = "D"
-    end
-    if yvel < 0 and math.abs(yvel) > math.abs(xvel) then
-        direction = "U"
-    end
+
 
     if direction == "U" then
         walkU:draw(160,80)
@@ -129,5 +148,3 @@ function playdate.update()
         end
     end
 end
-
-GfxSetup()
