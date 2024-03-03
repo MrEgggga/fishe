@@ -16,6 +16,10 @@ fishingMinigame.kIncomplete = 0
 fishingMinigame.kFailure = 1
 fishingMinigame.kSuccess = 2
 
+--- get the state of the game currently (failure, success, incomplete).
+--- the game should be removed after a failure or success.
+function fishingMinigame:checkDone() end
+
 class("barThing").extends(fishingMinigame)
 
 function barThing:init()
@@ -51,7 +55,11 @@ local controllableSlice = gfx.nineSlice.new("images/FishBar 9Slice.png", 8, 8, 8
 math.randomseed(playdate.getSecondsSinceEpoch())
 
 
+-- TODO: add more types of bars
+
 function barThing:draw(x, y, w, h)
+    -- TODO: display button used
+
     barSlice:drawInRect(0, 0, barWidth + 10, self.height)
     controllableSlice:drawInRect(0, self.pos, barWidth, self.areaHeight)
     fishSprite:draw(barWidth / 2 - fishSize / 2, self.fishPos - fishSize / 2)

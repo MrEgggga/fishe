@@ -40,7 +40,7 @@ function GfxSetup()
     local bar = barThing()
     local bar2 = barThing()
     bar.key = playdate.kButtonA
-    bar2.key = playdate.kButtonB
+    bar2.key = playdate.kButtonUp
     bars = {bar, bar2}
     printTable(bar)
     bar:moveTo(260, 120)
@@ -64,19 +64,31 @@ function GfxSetup()
 end
 
 GfxSetup()
+local kStateWalking <const> = 0
+local kStateFishing <const> = 1
+local state = kStateWalking
 
 function playdate.update()
-    if playdate.buttonIsPressed( playdate.kButtonUp ) then
-        yvel-=2
+    -- refactor later
+    if #bars > 0 then
+        state = kStateFishing
+    else
+        state = kStateWalking
     end
-    if playdate.buttonIsPressed( playdate.kButtonRight ) then
-        xvel+=2
-    end
-    if playdate.buttonIsPressed( playdate.kButtonDown ) then
-        yvel+=2
-    end
-    if playdate.buttonIsPressed( playdate.kButtonLeft ) then
-        xvel-=2
+
+    if state == kStateWalking then
+        if playdate.buttonIsPressed( playdate.kButtonUp ) then
+            yvel-=2
+        end
+        if playdate.buttonIsPressed( playdate.kButtonRight ) then
+            xvel+=2
+        end
+        if playdate.buttonIsPressed( playdate.kButtonDown ) then
+            yvel+=2
+        end
+        if playdate.buttonIsPressed( playdate.kButtonLeft ) then
+            xvel-=2
+        end
     end
 
     ScrollX += xvel
@@ -142,10 +154,11 @@ function playdate.update()
 
     playdate.timer.updateTimers()
 
-    for _,b in pairs(bars) do
+    for i,b in pairs(bars) do
         local state = b:checkDone()
         if state ~= fishingMinigame.kIncomplete then
             b:remove()
+            table.remove(bars, i)
             if state == fishingMinigame.kFailure then
                 -- failure code
             else
